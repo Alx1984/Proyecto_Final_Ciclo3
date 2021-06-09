@@ -1,16 +1,30 @@
 <?php
 
+require 'conexion.php';
 
-if (isset($_POST['edit'])) {
-    $nombre = $_POST['nombre'];
-    $email = $_POST['email'];
+$rid = "";
+$rnombre = "";
+$remail = "";
+$rcontacto_id = "";
 
-    echo($nombre);
+if (isset($_GET['editar'])) {
+    $email = $_GET['editar'];
     echo($email);
-    require 'conexion.php';
-    mysqli_query($conexion, "UPDATE tbl_emails SET email='$email', nombre='$nombre' WHERE email='$email'") or
-    die($mysqli->error);
+    $sql = "SELECT * FROM tbl_emails WHERE email='$email'";
+    $checkEmail = mysqli_query($conexion, $sql);
+    $check = mysqli_num_rows($checkEmail);
+
+    if ($check>0) {
+        $row = $checkEmail->fetch_assoc();
+
+        $rid = $row['id'];
+        $rnombre = $row['nombre'];
+        $remail = $row['email'];
+        $rcontacto_id = $row['contacto_id'];
+    }
     
+
 }
+
 
 ?>

@@ -35,6 +35,7 @@ $result = mysqli_query($conexion, $query);
                     </div>
                     <div class="col-sm-6">
                         <button type="button" name="add" id="add" data-toggle="modal" data-target="#modal2-wrapper" class="btn btn-warning">Agregar Contacto</button>
+                        <a href="lista_form.php"><button type="button" name="edit" id="add"  data-target="edit_form.php" class="btn btn-info">Editar Contactos</button></a>
                     </div>
                 </div>
             </div>
@@ -58,7 +59,6 @@ $result = mysqli_query($conexion, $query);
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Contacto_ID</th>
-                        <th>Editar</th>
                         <th>Borrar</th>
                     </tr>
                     <?php
@@ -75,7 +75,6 @@ $result = mysqli_query($conexion, $query);
                             <td><?php echo $row["nombre"]; ?></td>
                             <td><?php echo $row["email"]; ?></td>
                             <td><?php echo $row["contacto_id"]; ?></td>
-                            <td><a data-toggle="modal" data-email="<?php echo $row["email"]; ?>" data-nombre="<?php echo $row["nombre"]; ?>"  href="index.php#modal3-wrapper" class="btn btn-info">Editar</a></td>
                             <td><a href="delete_form.php?borrar=<?php echo $row["email"]; ?>" class="btn btn-danger" name="btnborrar" value="Borrar">Borrar</a></td>
                         </tr>
                     <?php
