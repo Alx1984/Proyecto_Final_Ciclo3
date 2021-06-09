@@ -23,7 +23,6 @@ if (isset($_GET['editar'])) {
         $rcontacto_id = $row['contacto_id'];
     }
     
-
 }
 
 
