@@ -9,7 +9,6 @@ $rcontacto_id = "";
 
 if (isset($_GET['editar'])) {
     $email = $_GET['editar'];
-    echo($email);
     $sql = "SELECT * FROM tbl_emails WHERE email='$email'";
     $checkEmail = mysqli_query($conexion, $sql);
     $check = mysqli_num_rows($checkEmail);
@@ -21,8 +20,7 @@ if (isset($_GET['editar'])) {
         $rnombre = $row['nombre'];
         $remail = $row['email'];
         $rcontacto_id = $row['contacto_id'];
-    }
-    
+    }    
 }
 
 
