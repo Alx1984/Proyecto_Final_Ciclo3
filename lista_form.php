@@ -31,15 +31,18 @@ $result = mysqli_query($conexion, $query);
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>Edita tus  <b>Contactos</b></h2>
+                        <h2>Edita tus <b>Contactos</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="index.php"><button type="button" name="edit" id="add"  data-target="edit_form.php" class="btn btn-warning">Regresar</button></a>
                     </div>
                 </div>
             </div>
 
             <br />
             <div id="employee_table">
-            
-            <table class="table table-striped table-hover">
+
+                <table class="table table-striped table-hover">
                     <tr>
                         <th>Cliente ID</th>
                         <th>Nombre</th>
@@ -50,7 +53,7 @@ $result = mysqli_query($conexion, $query);
                     <?php
                     while ($row = mysqli_fetch_array($result)) {
                     ?>
-                        <tr>                            
+                        <tr>
                             <td><?php echo $row["id"]; ?></td>
                             <td><?php echo $row["nombre"]; ?></td>
                             <td><?php echo $row["email"]; ?></td>
@@ -60,8 +63,8 @@ $result = mysqli_query($conexion, $query);
                     <?php
                     }
                     ?>
-                </table>            
-                            
+                </table>
+
             </div>
         </div>
     </div>
@@ -75,33 +78,34 @@ $result = mysqli_query($conexion, $query);
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>Edita tus  <b>Contactos</b></h2>
+                        <h2>Edita tus <b>Contactos</b></h2>
                     </div>
                 </div>
             </div>
 
             <br />
             <div id="employee_table">
-            
-            <table class="table table-striped table-hover">
-                    <tr>
-                        <th>Cliente ID</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Contacto_ID</th>
-                        <th>Borrar</th>
-                    </tr>
-                    <tr>                            
-                            <td><input type="text" name="cliente_id" class="form-control" value="<?php echo $rid?>" placeholder="cliente_id" required=""></td>
-                            <td><input type="text" name="nombre" class="form-control"  value="<?php echo $rnombre?>" placeholder="Nombre" required=""></td>
-                            <td><input type="text" name="nombre" class="form-control" value="<?php echo $remail?>"  placeholder="Email" required=""></td>
-                            <td><input type="text" name="nombre" class="form-control" value="<?php echo $rcontacto_id?>"  placeholder="Contacto_Id" required=""></td>
-                            <td><a href="edit_form.php?editar=<?php echo $row["email"]; ?>" class="btn btn-info" name="btnEditar" value="Editar">Editar</a></td>
-                    </tr>                    
-                </table>            
-                            
+                <form action="update_form.php" method="post">
+                    <table class="table table-striped table-hover">
+                        <tr>
+                            <th>Cliente ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Contacto_ID</th>
+                            <th>Borrar</th>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="cliente_id" class="form-control" value="<?php echo $rid ?>" placeholder="cliente_id" required="" readonly="readonly"></td>
+                            <td><input type="text" name="nombre" class="form-control" value="<?php echo $rnombre ?>" placeholder="Nombre" required=""></td>
+                            <td><input type="text" name="email" class="form-control" value="<?php echo $remail ?>" placeholder="Email" required=""></td>
+                            <td><input type="text" name="contacto_id" class="form-control" value="<?php echo $rcontacto_id ?>" placeholder="Contacto_Id" required="" readonly="readonly"> </td>
+                            <td><button type="submit" name="update" id="update" class="btn btn-success">Actualizar</button></td>
+                        </tr>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
 </body>
+
 </html>
