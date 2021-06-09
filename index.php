@@ -1,5 +1,9 @@
 <?php
 include 'conexion.php';
+session_start();
+$user = $_SESSION['usuario'];
+$usuarioId = $_SESSION['cliente_id'];
+//WHERE id = '$usuarioId' 
 $query = "SELECT * FROM tbl_emails ORDER BY id ASC";
 $result = mysqli_query($conexion, $query);
 ?>
@@ -31,57 +35,53 @@ $result = mysqli_query($conexion, $query);
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>Envia mensajes a tus <b>Contactos</b></h2>
+                        <h2>Envia mensajes a tus <b>Contactos : <?php echo $user; ?></b> <br /><b>ID: <?php echo $usuarioId; ?></b></h2>
                     </div>
                     <div class="col-sm-6">
                         <button type="button" name="add" id="add" data-toggle="modal" data-target="#modal2-wrapper" class="btn btn-warning">Agregar Contacto</button>
-                        <a href="lista_form.php"><button type="button" name="edit" id="add"  data-target="edit_form.php" class="btn btn-info">Editar Contactos</button></a>
+                        <a href="lista_form.php"><button type="button" name="edit" id="add" data-target="edit_form.php" class="btn btn-info">Editar Contactos</button></a>
                     </div>
                 </div>
             </div>
+            <form action="recipent_test.php" method="post">
+                <div class="form-group">
+                    <label for="comment">Mensaje:</label>
+                    <textarea class="form-control" rows="5" id="comment" id="textoEmail" name="textoEmail"></textarea>
+                </div>
 
-            <div class="form-group">
-                <label for="comment">Mensaje:</label>
-                <textarea class="form-control" rows="5" id="comment" id="textoEmail" name="textoEmail"></textarea>
-            </div>
-
-            <br />
-            <div id="employee_table">
-                <table class="table table-striped table-hover">
-                    <tr>
-                        <th>
-                            <span class="custom-checkbox">
-                                <input type="checkbox" id="selectAll">
-                                <label for="selectAll"></label>
-                            </span>
-                        </th>
-                        <th>Cliente ID</th>
-                        <th>Nombre</th>
-                        <th>Email</th>
-                        <th>Contacto_ID</th>
-                        <th>Borrar</th>
-                    </tr>
-                    <?php
-                    while ($row = mysqli_fetch_array($result)) {
-                    ?>
+                <br />
+                <div id="employee_table">
+                    <table class="table table-striped table-hover">
                         <tr>
-                            <td>
-                                <span class="custom-checkbox">
-                                    <input type="checkbox" id="checkbox1" name="checkbox" value="<?php echo $row["id"]; ?>">
-                                    <label for="checkbox1"></label>
-                                </span>
-                            </td>
-                            <td><?php echo $row["id"]; ?></td>
-                            <td><?php echo $row["nombre"]; ?></td>
-                            <td><?php echo $row["email"]; ?></td>
-                            <td><?php echo $row["contacto_id"]; ?></td>
-                            <td><a href="delete_form.php?borrar=<?php echo $row["email"]; ?>" class="btn btn-danger" name="btnborrar" value="Borrar">Borrar</a></td>
+                            <th>Cliente ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Contacto_ID</th>
+                            <th>Borrar</th>
                         </tr>
-                    <?php
-                    }
-                    ?>
-                </table>
-            </div>
+                        <?php
+                        while ($row = mysqli_fetch_array($result)) {
+                        ?>
+                            <tr>                                
+                                <td><?php echo $row["id"]; ?></td>
+                                <td><?php echo $row["nombre"]; ?></td>
+                                <td><?php echo $row["email"]; ?></td>
+                                <td><?php echo $row["contacto_id"]; ?></td>
+                                <td><a href="delete_form.php?borrar=<?php echo $row["email"]; ?>" class="btn btn-danger" name="btnborrar" value="Borrar">Borrar</a></td>
+                            </tr>
+                        <?php
+                        }
+                        ?>
+                    </table>
+                    <div class="col-sm-24">
+                        <button type="submit" name="enviar" id="enviar"  class="btn btn-success">Enviar Mensaje a todos tus contactos!</button>
+                    </div>
+                </div>
+                
+
+            </form>
+
+
         </div>
     </div>
     </div>
@@ -130,9 +130,9 @@ $result = mysqli_query($conexion, $query);
                 </div>
 
                 <div class="modal-body">
-                    <input type="text" name="nombre" class="form-control" value="<?php echo $row["contacto_id"]; ?>" required="" readonly="readonly">                    
+                    <input type="text" name="nombre" class="form-control" value="<?php echo $row["contacto_id"]; ?>" required="" readonly="readonly">
                     <br />
-                    <input type="text" name="nombre" class="form-control" value="<?php echo $row["nombre"]; ?>"  required="">
+                    <input type="text" name="nombre" class="form-control" value="<?php echo $row["nombre"]; ?>" required="">
                     <br />
                     <input type="text" name="email" class="form-control" value="<?php echo $row["email"]; ?>" required="">
                     <br />
@@ -151,6 +151,5 @@ $result = mysqli_query($conexion, $query);
 
         var nombre = $(e.relatedTarget).data('nombre');
         $(e.currentTarget).find('input[name="nombre"]').val(nombre);
-    }); 
+    });
 </script>
-
