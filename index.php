@@ -75,7 +75,7 @@ $result = mysqli_query($conexion, $query);
                             <td><?php echo $row["nombre"]; ?></td>
                             <td><?php echo $row["email"]; ?></td>
                             <td><?php echo $row["contacto_id"]; ?></td>
-                            <td><a data-toggle="modal" data-email="<?php echo $row["email"]; ?>" data-nombre="<?php echo $row["nombre"]; ?>" data-id="<?php echo $row["contacto_id"]; ?>"  href="index.php#modal3-wrapper" class="btn btn-info">Editar</a></td>
+                            <td><a data-toggle="modal" data-email="<?php echo $row["email"]; ?>" data-nombre="<?php echo $row["nombre"]; ?>"  href="index.php#modal3-wrapper" class="btn btn-info">Editar</a></td>
                             <td><a href="delete_form.php?borrar=<?php echo $row["email"]; ?>" class="btn btn-danger" name="btnborrar" value="Borrar">Borrar</a></td>
                         </tr>
                     <?php
@@ -131,7 +131,7 @@ $result = mysqli_query($conexion, $query);
                 </div>
 
                 <div class="modal-body">
-                    <input type="text" name="nombre" class="form-control" value="<?php echo $row["contacto_id"]; ?>" required="" disabled>                    
+                    <input type="text" name="nombre" class="form-control" value="<?php echo $row["contacto_id"]; ?>" required="" readonly="readonly">                    
                     <br />
                     <input type="text" name="nombre" class="form-control" value="<?php echo $row["nombre"]; ?>"  required="">
                     <br />
@@ -149,17 +149,9 @@ $result = mysqli_query($conexion, $query);
     $('#modal3-wrapper').on('show.bs.modal', function(e) {
         var email = $(e.relatedTarget).data('email');
         $(e.currentTarget).find('input[name="email"]').val(email);
-    });    
-</script>
-<script>
-    $('#modal3-wrapper').on('show.bs.modal', function(e) {
-        var contacto_id = $(e.relatedTarget).data('contacto_id');
-        $(e.currentTarget).find('input[name="contacto_id"]').val(contacto_id);
-    });
-</script>
-<script>
-    $('#modal3-wrapper').on('show.bs.modal', function(e) {
+
         var nombre = $(e.relatedTarget).data('nombre');
         $(e.currentTarget).find('input[name="nombre"]').val(nombre);
-    });
+    }); 
 </script>
+
