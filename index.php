@@ -1,10 +1,10 @@
 <?php
 include 'conexion.php';
 session_start();
-$user = $_SESSION['usuario'];
-$usuarioId = $_SESSION['cliente_id'];
+$usuario = $_SESSION['usuario'];
+$usuarioId = $_SESSION['usuarioId'];
 //WHERE id = '$usuarioId' 
-$query = "SELECT * FROM tbl_emails ORDER BY id ASC";
+$query = "SELECT * FROM tbl_emails WHERE id = '$usuarioId'";
 $result = mysqli_query($conexion, $query);
 ?>
 
@@ -35,7 +35,7 @@ $result = mysqli_query($conexion, $query);
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>Envia mensajes a tus <b>Contactos : <?php echo $user; ?></b> <br /><b>ID: <?php echo $usuarioId; ?></b></h2>
+                        <h2>Envia mensajes a tus <b>Contactos : <?php echo $usuario; ?></b> <br /><b>ID: <?php echo $usuarioId; ?></b></h2>
                     </div>
                     <div class="col-sm-6">
                         <button type="button" name="add" id="add" data-toggle="modal" data-target="#modal2-wrapper" class="btn btn-warning">Agregar Contacto</button>
@@ -43,7 +43,7 @@ $result = mysqli_query($conexion, $query);
                     </div>
                 </div>
             </div>
-            <form action="recipent_test.php" method="post">
+            <form action="envioEmail.php" method="post">
                 <div class="form-group">
                     <label for="comment">Mensaje:</label>
                     <textarea class="form-control" rows="5" id="comment" id="textoEmail" name="textoEmail"></textarea>
@@ -75,6 +75,7 @@ $result = mysqli_query($conexion, $query);
                     </table>
                     <div class="col-sm-24">
                         <button type="submit" name="enviar" id="enviar"  class="btn btn-success">Enviar Mensaje a todos tus contactos!</button>
+                        <?php $_SESSION['usuarioId'] = $usuarioId?>
                     </div>
                 </div>
                 

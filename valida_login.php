@@ -20,7 +20,7 @@ if ($check > 0) {
     echo '<script>alert("Bienvenido envia muchos mensajes")</script> ';
 	echo "<script>location.href='index.php'</script>";
     $_SESSION['usuario'] = $usuario;
-    $_SESSION['cliente_id']= $row['id']; 
+    $_SESSION['usuarioId']= $row['id']; 
 }
 else {
     echo '<script>alert("ESTE USUARIO NO EXISTE, POR FAVOR REGISTRESE PARA PODER INGRESAR")</script> ';		

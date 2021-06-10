@@ -1,23 +1,27 @@
 <?php
+require 'conexion.php';
+session_start();
 
-$recipients = array(
-	'alxaleman@gmail.com' => 'Alex1',
-	'alxaleman1984@gmail.com'=> 'Alex2',
-	'melvinguzman1104@gmail.com'=> 'Melvin',
-	'jatrejo081@gmail.com'=> 'Juan',
-	'yansiaguirreg@gmail.com'=> 'Yansi',
-	'alx-aleman@hotmail.com'=> 'Alex3',
-);
+$usuarioId = $_SESSION['usuarioId'];
+$usuario = $_SESSION['usuario'];
+$textoEmail = $_POST['textoEmail'];
 
 
 //Include required PHPMailer files
-	require 'includes/PHPMailer.php';
-	require 'includes/SMTP.php';
-	require 'includes/Exception.php';
+require 'includes/PHPMailer.php';
+require 'includes/SMTP.php';
+require 'includes/Exception.php';
+
 //Define name spaces
-	use PHPMailer\PHPMailer\PHPMailer;
-	use PHPMailer\PHPMailer\SMTP;
-	use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+$query = "SELECT email, nombre FROM tbl_emails WHERE id = '$usuarioId'";
+$result = mysqli_query($conexion, $query);
+$numrows = mysqli_num_rows($result);
+
+while ($row = mysqli_fetch_array($result)){	
 //Create instance of PHPMailer
 	$mail = new PHPMailer();
 //Set mailer to use smtp
@@ -41,19 +45,16 @@ $recipients = array(
 //Enable HTML
 	$mail->isHTML(true);
 //Email body
-	$mail->Body = "<h1>Noticia importante Grupo ITCA</h1></br><p>Este solo es un correo de prueba adicinando otro correo de HOTMAIL</p>";
+	$mail->Body = "<h1>Noticia importante Grupo ITCA 2</h1></br><p> $textoEmail</p>";
 //Add recipient
 //$mail->addAddress($emailArray);
-
-foreach ($recipients as $email => $name) {
-	$mail->AddCC($email, $name);
-}
+$mail->AddCC($row["email"], $row["nombre"]);
 
 //Finally send email
-	if ( $mail->send() ) {
-		echo "Correo Enviado...";
-	}else{
-		echo "Message could not be sent. Mailer Error: "[$mail->ErrorInfo];
-	}
+ $mail->send();
+}
 //Closing smtp connection
-	$mail->smtpClose();
+$mail->smtpClose();
+?>
+
+	
