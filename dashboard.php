@@ -72,9 +72,17 @@ if ($nivel == 'admin') {
                 </div>
             </div>
             <form action="envioEmail.php" method="post">
+            <div class="form-group">
+                    <label for="comment">Nombre de Correo:</label>
+                    <input type="text" name="nombreCorreo" class="form-control" placeholder="Nombre del correo" required="">
+                </div>
+                <div class="form-group">
+                    <label for="comment">Encabezado:</label>
+                    <input type="text" name="encabezado" class="form-control" placeholder="Encabezado" required="">
+                </div>
                 <div class="form-group">
                     <label for="comment">Mensaje:</label>
-                    <textarea class="form-control" rows="5" id="comment" id="textoEmail" name="textoEmail"></textarea>
+                    <textarea class="form-control" rows="5" id="comment" id="textoEmail" name="textoEmail" placeholder="Escribe tu mensaje..."></textarea>
                 </div>
 
                 <br />

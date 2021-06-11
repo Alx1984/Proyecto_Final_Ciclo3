@@ -3,20 +3,29 @@
 require 'conexion.php';
 session_start();
 
+
+$textoEmail = $_POST['textoEmail'];
+$encabezado = $_POST['encabezado'];
+$nombreCorreo = $_POST['nombreCorreo'];
+$nivel = $_SESSION['nivel'];
 $usuarioId = $_SESSION['usuarioId'];
 $usuario = $_SESSION['usuario'];
-$textoEmail = $_POST['textoEmail'];
-$nivel = $_SESSION['nivel'];
+
+
 
 
 if ($nivel == 'admin') {
 	$query = "SELECT email, nombre, contacto_id FROM tbl_emails";
 	$result = mysqli_query($conexion, $query);
 	$numrows = mysqli_num_rows($result);
+	
 }else {
 	$query = "SELECT email, nombre, contacto_id FROM tbl_emails WHERE id = '$usuarioId'";
 	$result = mysqli_query($conexion, $query);
 	$numrows = mysqli_num_rows($result);
+
+
+	
 }
 
 
@@ -30,9 +39,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-$query = "SELECT email, nombre, contacto_id FROM tbl_emails WHERE id = '$usuarioId'";
-$result = mysqli_query($conexion, $query);
-$numrows = mysqli_num_rows($result);
+// $query = "SELECT email, nombre, contacto_id FROM tbl_emails WHERE id = '$usuarioId'";
+// $result = mysqli_query($conexion, $query);
+// $numrows = mysqli_num_rows($result);
 
 while ($row = mysqli_fetch_array($result)){	
 
@@ -54,13 +63,13 @@ while ($row = mysqli_fetch_array($result)){
 //Set gmail password
 	$mail->Password = "Secreto21";
 //Email subject
-	$mail->Subject = "Prueba desde PHPMailer";
+	$mail->Subject = "$nombreCorreo";
 //Set sender email
 	$mail->setFrom('grupoitcasv21@gmail.com');
 //Enable HTML
 	$mail->isHTML(true);
 //Email body
-	$mail->Body = "<h1>Noticia importante Grupo ITCA</h1></br><p> $textoEmail</p>";
+	$mail->Body = "<h1>$encabezado</h1></br><p> $textoEmail</p>";
 //Add recipient
 //$mail->addAddress($emailArray);
 $mail->AddCC($row["email"], $row["nombre"]);
@@ -70,8 +79,8 @@ $contactoemail = $row["email"];
 $contactoid = $row["contacto_id"];
 
 //Add info to data base
-mysqli_query($conexion, "INSERT INTO tbl_historial (clienteid, nombrecliente, contactoid, nombrecontacto, contactoemail, fechaenvio, horaenvio, mensaje) VALUES 
-('$usuarioId', '$usuario', '$contactoid', '$contactonombre', '$contactoemail', CURRENT_DATE(), CURRENT_TIME(), '$textoEmail')");
+mysqli_query($conexion, "INSERT INTO tbl_historial (clienteid, nombrecliente, contactoid, nombrecontacto, contactoemail, fechaenvio, horaenvio, nombrecorreo, mensaje) VALUES 
+('$usuarioId', '$usuario', '$contactoid', '$contactonombre', '$contactoemail', CURRENT_DATE(), CURRENT_TIME(), '$nombreCorreo', '$textoEmail')");
 
 //Finally send email
  $mail->send();
