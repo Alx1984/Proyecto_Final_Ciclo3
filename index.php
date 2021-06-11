@@ -6,12 +6,39 @@ $usuarioId = $_SESSION['usuarioId'];
 //WHERE id = '$usuarioId' 
 $query = "SELECT * FROM tbl_emails WHERE id = '$usuarioId'";
 $result = mysqli_query($conexion, $query);
+
+
+
+// Get status message
+if(!empty($_GET['status'])){
+    switch($_GET['status']){
+        case 'succ':
+            $statusType = 'alert-success';
+            $statusMsg = 'Members data has been imported successfully.';
+            break;
+        case 'err':
+            $statusType = 'alert-danger';
+            $statusMsg = 'Some problem occurred, please try again.';
+            break;
+        case 'invalid_file':
+            $statusType = 'alert-danger';
+            $statusMsg = 'Please upload a valid CSV file.';
+            break;
+        default:
+            $statusType = '';
+            $statusMsg = '';
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
 <html>
 
+
 <head>
+
+
     <title>Envio de Correos</title>
     <!-- Brarry Css js   -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
@@ -30,6 +57,23 @@ $result = mysqli_query($conexion, $query);
 <body>
     <br /><br />
     <div class="container">
+    <div class="col-md-12">
+        <div class="float-right">
+            <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="plus"> Importar Contactos</i></a>
+        </div>
+    </div>
+    <br/>
+    <div class="col-md-12" id="importFrm" style="display: none;">
+        <form action="import_Data.php" method="post" enctype="multipart/form-data">
+            CSV File:<input type="file" name="file" id="file">
+            <input type="submit" class="btn btn-primary" name="enviar" value="IMPORT">
+        </form>
+    </div>
+
+    <div></div>
+
+
+
         <h3 align="center">Envio de mensajes</h3>
         <div class="table-wrapper">
             <div class="table-title">
@@ -87,8 +131,6 @@ $result = mysqli_query($conexion, $query);
     </div>
     </div>
 </body>
-
-
 </html>
 <!-- Modal para AGREGAR -->
 <div id="modal2-wrapper" class="modal fade">
@@ -102,7 +144,7 @@ $result = mysqli_query($conexion, $query);
                 </div>
 
                 <div class="modal-body">
-                    <input type="text" name="cliente_id" class="form-control" placeholder="cliente_id" required="">
+                    <input type="text" name="cliente_id" class="form-control" placeholder="cliente_id" required="" value="<?php echo $usuarioId; ?>" readonly="readonly">
                     <br />
                     <input type="text" name="nombre" class="form-control" placeholder="Nombre" required="">
                     <br />
@@ -115,42 +157,17 @@ $result = mysqli_query($conexion, $query);
     </div>
 </div>
 
-
-
-<!-- Modal para Modificar -->
-
-
-<div id="modal3-wrapper" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form class="modal-content animate" action="edit_form.php" method="POST">
-
-                <div class="modal-header">
-                    <button type="close" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Editar Contacto</h4>
-                </div>
-
-                <div class="modal-body">
-                    <input type="text" name="nombre" class="form-control" value="<?php echo $row["contacto_id"]; ?>" required="" readonly="readonly">
-                    <br />
-                    <input type="text" name="nombre" class="form-control" value="<?php echo $row["nombre"]; ?>" required="">
-                    <br />
-                    <input type="text" name="email" class="form-control" value="<?php echo $row["email"]; ?>" required="">
-                    <br />
-                    <button type="submit" name="edit" class="btn btn-info">Editar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
 <script>
-    $('#modal3-wrapper').on('show.bs.modal', function(e) {
-        var email = $(e.relatedTarget).data('email');
-        $(e.currentTarget).find('input[name="email"]').val(email);
+    function formToggle(ID){
+        var element = document.getElementById(ID);
+        if (element.style.display == "none") {
+            element.style.display = "block";
+        }
+        else{
+            element.style.display = "none";
+        }
+    }
 
-        var nombre = $(e.relatedTarget).data('nombre');
-        $(e.currentTarget).find('input[name="nombre"]').val(nombre);
-    });
 </script>
+
+

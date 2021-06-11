@@ -48,7 +48,31 @@
             <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
         </div>
     </form>
-    <p class="text-center"><a href="#">Crear Cuenta</a></p>
+    <p class="text-center"><a data-toggle="modal" data-target="#modal2-wrapper">Crear Cuenta</a></p>
 </div>
 </body>
 </html>
+
+<div id="modal2-wrapper" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="modal-content animate" action="insert_form.php" method="POST">
+
+                <div class="modal-header">
+                    <button type="close" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Agregar un Contacto</h4>
+                </div>
+
+                <div class="modal-body">
+                    <input type="text" name="cliente_id" class="form-control" placeholder="cliente_id" required="" value="<?php echo $usuarioId; ?>" readonly="readonly">
+                    <br />
+                    <input type="text" name="nombre" class="form-control" placeholder="Nombre" required="">
+                    <br />
+                    <input type="text" name="email" class="form-control" placeholder="correo electronico" required="">
+                    <br />
+                    <button type="submit" name="agregar" class="btn btn-warning">Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
