@@ -1,7 +1,19 @@
 <?php
 include 'conexion.php';
-$query = "SELECT * FROM tbl_emails ORDER BY id ASC";
-$result = mysqli_query($conexion, $query);
+session_start();
+$nivel = $_SESSION['nivel'];
+$clienteId = $_SESSION['id'];
+
+if ($nivel == 'admin') {
+    $query = "SELECT * FROM tbl_emails ORDER BY id ASC";
+    $result = mysqli_query($conexion, $query);
+}else {
+    $query = "SELECT * FROM tbl_emails WHERE id = '$clienteId' ORDER BY id ASC";
+    $result = mysqli_query($conexion, $query);
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +46,8 @@ $result = mysqli_query($conexion, $query);
                         <h2>Edita tus <b>Contactos</b></h2>
                     </div>
                     <div class="col-sm-6">
-                        <a href="index.php"><button type="button" name="edit" id="add"  data-target="edit_form.php" class="btn btn-warning">Regresar</button></a>
+                        <a href="desconectar.php"><button type="button" name="desconectar" id="desconectar"  class="btn btn-danger">Cerrar</button></a>
+                        <a href="dashboard.php"><button type="button" name="edit" id="add"  data-target="edit_form.php" class="btn btn-warning">Regresar</button></a>
                     </div>
                 </div>
             </div>

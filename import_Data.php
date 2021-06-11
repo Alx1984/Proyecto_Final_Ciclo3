@@ -39,7 +39,7 @@ if (isset($_POST['enviar']))
 
       fclose($handle);
    }
-   header('Location: index.php');
+   header('Location: dashboard.php');
 }
 
 

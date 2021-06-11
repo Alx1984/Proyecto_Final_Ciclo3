@@ -1,130 +1,74 @@
-<?php
-include 'conexion.php';
-session_start();
-$usuario = $_SESSION['usuario'];
-$usuarioId = $_SESSION['usuarioId'];
-//WHERE id = '$usuarioId' 
-$query = "SELECT * FROM tbl_emails WHERE id = '$usuarioId'";
-$result = mysqli_query($conexion, $query);
-?>
-
 <!DOCTYPE html>
-<html>
-
-
+<html lang="en">
 <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Bootstrap Simple Login Form</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-
-    <title>Envio de Correos</title>
-    <!-- Brarry Css js   -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <!-- css add external -->
-    <link rel="stylesheet" href="css/styles.css">
-
+<style>
+.login-form {
+    width: 340px;
+    margin: 50px auto;
+  	font-size: 15px;
+}
+.login-form form {
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.btn {        
+    font-size: 15px;
+    font-weight: bold;
+}
+</style>
 </head>
-
 <body>
-    <br /><br />
-    <div class="container">
-    <div class="col-md-12">
-        <div class="float-right">
-            <a href="javascript:void(0);" class="btn btn-success" onclick="formToggle('importFrm');"><i class="plus"> Importar Contactos</i></a>
+<div class="login-form">
+    <form action="valida_login.php" method="post">
+        <h2 class="text-center">Log in</h2>       
+        <div class="form-group">
+            <input type="text" class="form-control" name="usuario" placeholder="Usuario" required="required">
         </div>
-    </div>
-    <br/>
-    <div class="col-md-12" id="importFrm" style="display: none;">
-        <form action="import_Data.php" method="post" enctype="multipart/form-data">
-            CSV File:<input type="file" name="file" id="file">
-            <input type="submit" class="btn btn-primary" name="enviar" value="IMPORT">
-        </form>
-    </div>
-
-    <div></div>
-
-
-
-        <h3 align="center">Envio de mensajes</h3>
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h2>Envia mensajes a tus <b>Contactos : <?php echo $usuario; ?></b> <br /><b>ID: <?php echo $usuarioId; ?></b></h2>
-                    </div>
-                    <div class="col-sm-6">
-                        <button type="button" name="add" id="add" data-toggle="modal" data-target="#modal2-wrapper" class="btn btn-warning">Agregar Contacto</button>
-                        <a href="lista_form.php"><button type="button" name="edit" id="add" data-target="edit_form.php" class="btn btn-info">Editar Contactos</button></a>
-                    </div>
-                </div>
-            </div>
-            <form action="envioEmail.php" method="post">
-                <div class="form-group">
-                    <label for="comment">Mensaje:</label>
-                    <textarea class="form-control" rows="5" id="comment" id="textoEmail" name="textoEmail"></textarea>
-                </div>
-
-                <br />
-                <div id="employee_table">
-                    <table class="table table-striped table-hover">
-                        <tr>
-                            <th>Cliente ID</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Contacto_ID</th>
-                            <th>Borrar</th>
-                        </tr>
-                        <?php
-                        while ($row = mysqli_fetch_array($result)) {
-                        ?>
-                            <tr>                                
-                                <td><?php echo $row["id"]; ?></td>
-                                <td><?php echo $row["nombre"]; ?></td>
-                                <td><?php echo $row["email"]; ?></td>
-                                <td><?php echo $row["contacto_id"]; ?></td>
-                                <td><a href="delete_form.php?borrar=<?php echo $row["email"]; ?>" class="btn btn-danger" name="btnborrar" value="Borrar">Borrar</a></td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
-                    </table>
-                    <div class="col-sm-24">
-                        <button type="submit" name="enviar" id="enviar"  class="btn btn-success">Enviar Mensaje a todos tus contactos!</button>
-                        <?php $_SESSION['usuarioId'] = $usuarioId?>
-                    </div>
-                </div>
-                
-
-            </form>
-
-
+        <div class="form-group">
+            <input type="password" class="form-control" name="contra" placeholder="Contraseña" required="required">
         </div>
-    </div>
-    </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+        </div>
+    </form>
+    <p class="text-center"><a data-toggle="modal" data-target="#modal2-wrapper" href="">Crear Cuenta</a></p>
+</div>
 </body>
 </html>
-<!-- Modal para AGREGAR -->
+
 <div id="modal2-wrapper" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="modal-content animate" action="insert_form.php" method="POST">
+            <form class="modal-content animate" action="registro.php" method="POST">
 
                 <div class="modal-header">
                     <button type="close" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Agregar un Contacto</h4>
+                    <br/>
+                    <h4 class="modal-title">Nuevo registro</h4>
                 </div>
 
                 <div class="modal-body">
-                    <input type="text" name="cliente_id" class="form-control" placeholder="cliente_id" required="" value="<?php echo $usuarioId; ?>" readonly="readonly">
-                    <br />
                     <input type="text" name="nombre" class="form-control" placeholder="Nombre" required="">
                     <br />
-                    <input type="text" name="email" class="form-control" placeholder="correo electronico" required="">
+                    <input type="password" name="contra" class="form-control" placeholder="Contraseña" required="">
                     <br />
                     <button type="submit" name="agregar" class="btn btn-warning">Agregar</button>
                 </div>
@@ -132,18 +76,3 @@ $result = mysqli_query($conexion, $query);
         </div>
     </div>
 </div>
-
-<script>
-    function formToggle(ID){
-        var element = document.getElementById(ID);
-        if (element.style.display == "none") {
-            element.style.display = "block";
-        }
-        else{
-            element.style.display = "none";
-        }
-    }
-
-</script>
-
-
