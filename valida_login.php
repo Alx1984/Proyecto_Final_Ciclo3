@@ -14,7 +14,7 @@ $check = mysqli_num_rows($checkLog);
 
 
 if ($check > 0) {
-    echo '<script>alert("Bienvenido envia muchos mensajes")</script> ';
+    echo '<script>alert("Bienvenido  '.$usuario.'")</script> ';
 	echo "<script>location.href='dashboard.php'</script>";
     $_SESSION['usuario'] = $usuario;
     $_SESSION['usuarioId']= $row['id'];
