@@ -21,6 +21,6 @@ if ($check > 0) {
     $_SESSION['nivel'] = $row['nivel'];
 }
 else {
-    echo '<script>alert("ESTE USUARIO NO EXISTE, POR FAVOR REGISTRESE PARA PODER INGRESAR")</script> ';		
+    echo '<script>alert("ESTE USUARIO NO EXISTE O CONTRASEÑA INCORRECTA")</script> ';		
 	echo "<script>location.href='index.php'</script>";
 }
