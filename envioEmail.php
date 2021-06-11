@@ -39,10 +39,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// $query = "SELECT email, nombre, contacto_id FROM tbl_emails WHERE id = '$usuarioId'";
-// $result = mysqli_query($conexion, $query);
-// $numrows = mysqli_num_rows($result);
-
 while ($row = mysqli_fetch_array($result)){	
 
 

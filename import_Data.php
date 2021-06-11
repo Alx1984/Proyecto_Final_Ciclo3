@@ -16,6 +16,8 @@ if (isset($_POST['enviar']))
 	$filename = $_FILES['file']['tmp_name'];
 	$handle = fopen($filename, "r");
 
+   fgetcsv($handle);//salta la primera linea
+
 	while( ($data = fgetcsv($handle, 1000, ",") ) !== FALSE )
 	{  
       $sql = "SELECT email FROM tbl_emails WHERE email = '$data[2]'";
