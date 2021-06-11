@@ -1,0 +1,51 @@
+CREATE DATABASE emails;
+
+USE emails;
+
+CREATE TABLE `tbl_login` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `contra` varchar(50) NOT NULL
+);
+
+CREATE TABLE `tbl_emails` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `contacto_id` int(11) NOT NULL
+
+);
+
+CREATE TABLE `tbl_historial` (
+  `clienteid` int(11) NOT NULL,
+  `nombrecliente` varchar(50) NOT NULL,
+  `contactoid` int(11) NOT NULL,
+  `nombrecontacto` varchar(50) NOT NULL,
+  `contactoemail` varchar(50) NOT NULL,
+  `fechaenvio` date NOT NULL,
+  `horaenvio` time NOT NULL,
+  `nombrecorreo` varchar(100) NOT NULL,
+  `mensaje` varchar(500) NOT NULL
+);
+
+USE emails;
+
+
+INSERT INTO tbl_login ( id, nombre, contra, nivel )
+   VALUES
+   (1000, 'Alex', 'contra','user'),
+   (1001, 'Yansi', 'contra','user'),
+   (1002, 'Melvin', 'contra','user'),
+   (1003, 'Juan', 'contra','user'),
+   (1, 'admin', 'admin','admin')
+   ;
+
+INSERT INTO tbl_emails ( id, email, nombre, contacto_id)
+   VALUES
+   ( 1000, 'alxaleman@gmail.com', 'Alex1', 1 ),
+   ( 1000, 'alxaleman1984@gmail.com', 'Alex2', 2),
+   ( 1000, 'alx-aleman@hotmail.com', 'Alex3', 3),
+   ( 1001, 'melvinguzman1104@gmail.com', 'Melvin', 4),
+   ( 1001, 'jatrejo081@gmail.com', 'Juan', 5),
+   ( 1002, 'yansiaguirreg@gmail.com', 'Yansi', 6)
+   ;
