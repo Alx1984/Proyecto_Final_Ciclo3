@@ -6,30 +6,6 @@ $usuarioId = $_SESSION['usuarioId'];
 //WHERE id = '$usuarioId' 
 $query = "SELECT * FROM tbl_emails WHERE id = '$usuarioId'";
 $result = mysqli_query($conexion, $query);
-
-
-
-// Get status message
-if(!empty($_GET['status'])){
-    switch($_GET['status']){
-        case 'succ':
-            $statusType = 'alert-success';
-            $statusMsg = 'Members data has been imported successfully.';
-            break;
-        case 'err':
-            $statusType = 'alert-danger';
-            $statusMsg = 'Some problem occurred, please try again.';
-            break;
-        case 'invalid_file':
-            $statusType = 'alert-danger';
-            $statusMsg = 'Please upload a valid CSV file.';
-            break;
-        default:
-            $statusType = '';
-            $statusMsg = '';
-    }
-}
-
 ?>
 
 <!DOCTYPE html>
