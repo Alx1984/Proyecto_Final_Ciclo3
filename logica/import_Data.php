@@ -1,5 +1,6 @@
 <?php 
 
+//kajdcbhlahbchsadbc
 
 $mysqli = new mysqli("localhost","root","","emails");
 
@@ -33,6 +34,7 @@ if (isset($_POST['enviar']))
             '$data[3]'
          )";
       }
+
 
 	   
 	$mysqli->query($q);
