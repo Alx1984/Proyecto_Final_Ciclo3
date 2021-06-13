@@ -1,6 +1,5 @@
 <?php 
 
-// conexión
 
 $mysqli = new mysqli("localhost","root","","emails");
 

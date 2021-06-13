@@ -87,7 +87,7 @@ if ($nivel == 'admin') {
     <?php
     include 'edit_form.php';
     ?>
-
+<!--tabla para editar-->
     <div class="container">
         <div class="table-wrapper">
             <div class="table-title">

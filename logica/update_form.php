@@ -5,7 +5,6 @@
     $email = $_POST['email'];
     $contacto_id = $_POST['contacto_id'];
 
-    echo($contacto_id);
     
 
     require 'conexion.php';
