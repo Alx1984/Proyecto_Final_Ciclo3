@@ -1,5 +1,5 @@
 <?php
-require 'conexion.php';
+require 'logica/conexion.php';
 $nombre = $_POST['nombre'];
 $contra = $_POST['contra'];
 $nivel = "user";

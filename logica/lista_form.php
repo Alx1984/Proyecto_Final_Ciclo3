@@ -32,6 +32,8 @@ if ($nivel == 'admin') {
 
     <!-- css add external -->
     <link rel="stylesheet" href="../css/styles.css">
+    <title>Envio de Mensajes</title>
+    <link rel="icon" type="image/png" href="../img/Iconmsn.png" />
 
 </head>
 
