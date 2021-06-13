@@ -1,3 +1,4 @@
+//Iniciando sesion
 <?php
 
 require 'conexion.php';
